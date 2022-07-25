@@ -1,0 +1,81 @@
+<div class="page-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="main-title">
+            <h2>{{formType}} Question</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="question" class="form-label">Question <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="question" id="question" />
+                  <div class="text-danger" *ngIf="(isSubmit &&  !questionForm.controls['question'].valid)">
+                    This field is required.</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="question" class="form-label">Question Type<span class="text-danger">*</span></label>
+                  <div>
+                    <div class="form-check form-check-inline" *ngFor="let type of types ; let i = index">
+                      <input class="form-check-input" type="radio" (change)="radioSelect(type)" id="{{type.id}}"
+                        formControlName="questionType" name="questionType" value="{{type.id}}">
+                      <label class="form-check-label" for="{{type.id}}">
+                        {{type.value}}
+                      </label>
+                    </div>
+                    <div class="text-danger" *ngIf="(isSubmit &&  !questionForm.controls['questionType'].valid)">
+                      This field is required.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12" formArrayName="options" *ngIf="isShowOptions">
+                <div class="mb-3">
+                  <label for="question" class="form-label">Option<span class="text-danger">*</span></label>
+                  <button class="btn btn-primary btn-sm mx-2"  type="button" (click)="addOptions()">
+                    +
+                  </button>
+                  <div *ngFor="let data of optionDetails.controls; let i = index">
+  
+                    <div class="row mb-3 align-items-center" [formGroup]="data">
+                      <div class="col-md-4">
+                        <input type="text" class="form-control" formControlName="text" placeholder="Type option">
+                      </div>
+                      <div class="col-md-4">
+                        <div class="d-flex gap-2 align-items-center">
+                          <button class="btn btn-danger btn-sm" (click)="removeOptions(i)">
+                            -
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-danger"
+                      *ngIf="isSubmit && data.get('text').errors && data.get('text').hasError('required')">
+                      This field is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="devider"></div>
+              </div>
+              <div class="col-12">
+                <div class="d-flex gap-2 align-items-center">
+                  <button class="btn btn-success px-4" type="submit">{{formType | uppercase}}</button>
+                  <button class="btn btn-danger px-4" type="button" routerLink="/">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 

@@ -1,0 +1,89 @@
+<div class="page-content">
+  <div class="container">
+    <div class="row">
+
+      <div class="main-title">
+        <div class="d-flex justify-content-between">
+          <h2>Question Management</h2>
+          <button class="btn btn-link" routerLink="/add_questions/">+ ADD QUESTION</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive" *ngIf="manageDetails.length > 0">
+          <table class="table table-bordered">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-center">#</th>
+                <th>Question</th>
+                <th>Choice</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of manageDetails;let i = index">
+                <th class="text-center" *ngIf="!data.isDelete">{{i+1}}</th>
+                <td *ngIf="!data.isDelete"> {{data.text}}</td>
+                <td *ngIf="!data.isDelete">{{data.type.value}}</td>
+                <td>{{data.createdOn | date}}</td>
+                <td *ngIf="!data.isDelete">
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-success" [routerLink]="['/edit_questions/' + data.id]">
+                      Edit
+                    </button>
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" (click)="onDelete(data.id)"
+                      data-bs-target="#staticBackdrop">
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="manageDetails.length === 0">
+          <div class="card empty-data-card">
+            <div class="card-body p-0">
+              <span>
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="triangle-exclamation" role="img"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="" height="30" width="30">
+                  <path fill="#fab005"
+                    d="M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z"
+                    class=""></path>
+                </svg>
+              </span>
+              <div>
+                <h5>Sorry! No data Available</h5>
+                <p class="mb-0">
+
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center p-4 alert-body">
+        <img src="../../../assets/images/alert-sign.svg" />
+        <h5 class="mt-2 mb-2">Are You Sure!!!</h5>
+        <p>Are You sure you want to delete this item.</p>
+        <div class="d-flex gap-2 justify-content-center">
+          <button type="button" class="btn btn-danger btn-sm px-4" data-bs-dismiss="modal">
+            NO
+          </button>
+          <button type="button" (click)="confirmDelete()" class="btn btn-success btn-sm px-4"
+            data-bs-dismiss="modal">YES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

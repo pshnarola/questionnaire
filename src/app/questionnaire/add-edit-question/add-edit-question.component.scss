@@ -1,0 +1,24 @@
+form {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  border: 1px solid #edeff1;
+  .form-label {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .form-control {
+    &:focus {
+      outline: 0;
+      box-shadow: unset;
+      border-color: #2196f3;
+    }
+  }
+}
+.devider {
+  height: 1px;
+  width: 100%;
+  background-color: #e9eaeb;
+  margin-block: 20px;
+}
